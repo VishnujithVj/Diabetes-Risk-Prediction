@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Diabetes Detector</title>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <style>
+    body {
+      background-image: url('https://blogimages.softwaresuggest.com/blog/wp-content/uploads/2021/05/10192350/Top-8-Benefits-of-Having-A-Smart-Hospital-Management-System.png');
+      background-size: contain;
+      background-repeat: repeat;
+      font-family: 'Open Sans', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .container {
+      max-width: 700px;
+      margin: 60px auto;
+      padding: 45px;
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    input[type="radio"] {
+      transform: scale(1.5);  
+      margin-right: 10px; 
+    }
+    
+    h1 {
+      text-align: center;
+    }
+
+    form {
+      margin-top: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      background-color: #4a77d4;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: #345fb4;
+    }
+
+    .prediction {
+      margin-top: 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Diabetes Detector</h1>
+  <form action="{{ url_for('predict') }}" method="post">
+    <div class="form-group">
+      <label for="age">Age (years)</label>
+      <input type="text" id="age" name="age" placeholder="Enter your age">
+    </div>
+    <div class="form-group">
+      <label for="gender">Gender</label>
+      <select id="gender" name="gender">
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="polyuria">Polyuria:</label>
+      <input type="radio" id="polyuria_yes" name="polyuria" value="1">
+      <label for="polyuria_yes">Yes</label>
+      <input type="radio" id="polyuria_no" name="polyuria" value="0">
+      <label for="polyuria_no">No</label>
+    </div>
+    <div class="form-group">
+      <label for="polydipsia">Polydipsia:</label>
+      <input type="radio" id="polydipsia_yes" name="polydipsia" value="1">
+      <label for="polydipsia_yes">Yes</label>
+      <input type="radio" id="polydipsia_no" name="polydipsia" value="0">
+      <label for="polydipsia_no">No</label>
+    </div>
+    <div class="form-group">
+      <label for="sudden_weight_loss">Sudden Weight Loss:</label>
+      <input type="radio" id="sudden_weight_loss_yes" name="sudden_weight_loss" value="1">
+      <label for="sudden_weight_loss_yes">Yes</label>
+      <input type="radio" id="sudden_weight_loss_no" name="sudden_weight_loss" value="0">
+      <label for="sudden_weight_loss_no">No</label>
+    </div>
+    <div class="form-group">
+      <label for="weakness">Weakness:</label>
+      <input type="radio" id="weakness_yes" name="weakness" value="1">
+      <label for="weakness_yes">Yes</label>
+      <input type="radio" id="weakness_no" name="weakness" value="0">
+      <label for="weakness_no">No</label>
+    </div>
+    <div class="form-group">
+      <label for="polyphagia">Polyphagia:</label>
+      <input type="radio" id="polyphagia_yes" name="polyphagia" value="1">
+      <label for="polyphagia_yes">Yes</label>
+      <input type="radio" id="polyphagia_no" name="polyphagia" value="0">
+      <label for="polyphagia_no">No</label>
+    </div>
+    <div class="form-group">
+      <label for="genital_thrush">Genital Thrush:</label>
+      <input type="radio" id="genital_thrush_yes" name="genital_thrush" value="1">
+      <label for="genital_thrush_yes">Yes</label>
+      <input type="radio" id="genital_thrush_no" name="genital_thrush" value="0">
+      <label for="genital_thrush_no">No</label>
+    </div>
+    <div class="form-group">
+      <label for="visual_blurring">Visual Blurring:</label>
+      <input type="radio" id="visual_blurring_yes" name="visual_blurring" value="1">
+      <label for="visual_blurring_yes">Yes</label>
+      <input type="radio" id="visual_blurring_no" name="visual_blurring" value="0">
+      <label for="visual_blurring_no">No</label>
+    </div>
+    <div class="form-group">
+      <label for="itching">Itching:</label>
+      <input type="radio" id="itching_yes" name="itching" value="1">
+      <label for="itching_yes">Yes</label>
+      <input type="radio" id="itching_no" name="itching" value="0">
+      <label for="itching_no">No</label>
+    </div>
+    <div class="form-group">
+      <label for="irritability">Irritability:</label>
+      <input type="radio" id="irritability_yes" name="irritability" value="1">
+      <label for="irritability_yes">Yes</label>
+      <input type="radio" id="irritability_no" name="irritability" value="0">
+      <label for="irritability_no">No</label>
+    </div>
+    <div class="form-group">
+      <label for="delayed_healing">Delayed Healing:</label>
+      <input type="radio" id="delayed_healing_yes" name="delayed_healing" value="1">
+      <label for="delayed_healing_yes">Yes</label>
+      <input type="radio" id="delayed_healing_no" name="delayed_healing" value="0">
+      <label for="delayed_healing_no">No</label>
+    </div>
+    <div class="form-group">
+      <label for="partial_paresis">Partial Paresis:</label>
+      <input type="radio" id="partial_paresis_yes" name="partial_paresis" value="1">
+      <label for="partial_paresis_yes">Yes</label>
+      <input type="radio" id="partial_paresis_no" name="partial_paresis" value="0">
+      <label for="partial_paresis_no">No</label>
+    </div>
+    <div class="form-group">
+      <label for="muscle_stiffness">Muscle Stiffness:</label>
+      <input type="radio" id="muscle_stiffness_yes" name="muscle_stiffness" value="1">
+      <label for="muscle_stiffness_yes">Yes</label>
+      <input type="radio" id="muscle_stiffness_no" name="muscle_stiffness" value="0">
+      <label for="muscle_stiffness_no">No</label>
+    </div>
+    <div class="form-group">
+      <label for="alopecia">Alopecia:</label>
+      <input type="radio" id="alopecia_yes" name="alopecia" value="1">
+      <label for="alopecia_yes">Yes</label>
+      <input type="radio" id="alopecia_no" name="alopecia" value="0">
+      <label for="alopecia_no">No</label>
+    </div>
+    <div class="form-group">
+      <label for="obesity">Obesity:</label>
+      <input type="radio" id="obesity_yes" name="obesity" value="1">
+      <label for="obesity_yes">Yes</label>
+      <input type="radio" id="obesity_no" name="obesity" value="0">
+      <label for="obesity_no">No</label>
+    </div>
+    
+    <button type="submit" class="btn">Predict</button>
+  </form>
+  <div class="prediction">
+  </div>
+</div>
+
+</body>
+</html>
