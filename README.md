@@ -8,12 +8,13 @@ The Diabetes Risk Prediction project is aimed at developing a machine learning m
 
 ### Home Screen
 
-[Screenshot (17)](https://github.com/VishnujithVj/Diabetes-Risk-Prediction/assets/144329305/e24db91b-4c30-49d6-9a96-c4efef1f6616)
-
+![Screenshot (17)](https://github.com/VishnujithVj/Diabetes-Risk-Prediction/assets/144329305/0c2f032a-c77a-412d-90d3-f3ddd4e644ea)
+ 
 
 ### Result Screen
 
-[Screenshot (18)](https://github.com/VishnujithVj/Diabetes-Risk-Prediction/assets/144329305/ad2b4127-597f-4441-82fa-4cc18bfa4ddd)
+![Screenshot (18)](https://github.com/VishnujithVj/Diabetes-Risk-Prediction/assets/144329305/f480a25b-d500-4f67-81ce-77eabac7fe2a)
+
 
 
  
